@@ -2,8 +2,17 @@
   "globalstrict": true,
   "jasmine": true,
   "globals": {
+    // General
+    "document": true,
+
+    // AngularJS
     "angular": true,
     "module": true,
-    "inject": true
+    "inject": true,
+
+    // RequireJS
+    "requirejs": true,
+    "require": true,
+    "define": true
   }
 }
