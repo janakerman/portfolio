@@ -1,6 +1,6 @@
 'use strict';
 
-define(['./app.js'], function(app) {
+define(['app.js'], function(app) {
   return app.config([
     '$stateProvider', 
     '$urlRouterProvider', 

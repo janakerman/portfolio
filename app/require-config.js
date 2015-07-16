@@ -13,17 +13,9 @@ require.config({
     },
     priority: [
         "angular"
+    ],
+    deps: [
+    // Trigger angular bootstrap.
+        'angular-bootstrap'
     ]
-});
-
-require([
-    'angular',
-    'app',
-    'routes'
-], function(angular) {
-    var $html = angular.element(document.getElementsByTagName('html')[0]);
-    angular.element().ready(function() {
-        // bootstrap the app manually
-        angular.bootstrap(document, ['portfolio']);
-    });
 });
