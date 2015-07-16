@@ -2,16 +2,13 @@
 
 define([
   'angular',
-  'angularRoute',
+  'uiRouter',
   'view1/view1',
   'view2/view2'
-], function(angular, angularRoute, view1, view2) {
+], function(angular) {
   return angular.module('portfolio', [
-      'ngRoute',
+      'ui.router',
       'portfolio.view1',
       'portfolio.view2'
-  ])
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider.otherwise({redirectTo: '/view1'});
-  }]);
+  ]);
 });

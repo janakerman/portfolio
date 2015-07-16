@@ -3,11 +3,13 @@
 require.config({
     paths: {
         angular: '../node_modules/angular/angular',
-        angularRoute: '../node_modules/angular-route/angular-route'
+        uiRouter: '../node_modules/ui-router/angular-ui-router'
     },
     shim: {
         'angular': {'exports': 'angular'},
-        'angularRoute': ['angular']
+        'uiRouter': {
+            deps: ['angular']
+        }
     },
     priority: [
         "angular"
@@ -16,8 +18,9 @@ require.config({
 
 require([
     'angular',
-    'app'
-], function(angular, app) {
+    'app',
+    'routes'
+], function(angular) {
     var $html = angular.element(document.getElementsByTagName('html')[0]);
     angular.element().ready(function() {
         // bootstrap the app manually
