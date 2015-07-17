@@ -13,10 +13,11 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: [
-                'app/**/*'
-            ],
-            tasks: ['dev']
+            files: ['app/**/*'],
+            tasks: ['build'],
+            options: {
+              livereload: true,
+            }
         },
         'http-server': {
             dev: {
@@ -37,9 +38,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', 'dev');
 
-    grunt.registerTask('dev', ['jshint', 'watch']);
-    // Should start the server
+    // Builds the project then watches for any changes.
+    grunt.registerTask('dev', ['build', 'watch']);
+
+    // Builds and validates the project.
+    grunt.registerTask('build', ['jshint']);
+
+    // Starts a HTTP server before running the dev task.
     grunt.registerTask('dev:serve', ['http-server', 'dev']);
-
-
 };
