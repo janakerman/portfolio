@@ -5,7 +5,7 @@ define([], function() {
         return {
             restrict: 'E',
             replace: true,
-            template: '<div ui-view="content"></div>'
+            template: '<p>Select a contact.</p>'
         };
     };
 });

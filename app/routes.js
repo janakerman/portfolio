@@ -17,7 +17,13 @@ define(['app'], function(app) {
         url: '/contacts',
         views: {
           'content@app': {
-            template: '<p>contacts</p>'
+            template: '<contacts-layout></contacts-layout>'
+          },
+          'master@app.contacts': {
+            template: '<contacts-list></contacts-list>'
+          },
+          'detail@app.contacts': {
+            template: '<contact-placeholder></contact-placeholder>'
           }
         }
       });
