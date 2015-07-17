@@ -1,19 +1,33 @@
 'use strict';
 
-define(['app.js'], function(app) {
+define(['app'], function(app) {
   return app.config([
     '$stateProvider', 
-    '$urlRouterProvider', 
+    '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
-      $stateProvider.state('view1', {
-        url: '/view1',
-        templateUrl: 'view1/view1.html'
+      $stateProvider.state('app', {
+        abstract: true,
+        views: {
+          '': {
+            template: '<layout><layout/>'
+          }
+        }
       })
-      .state('view2', {
-        url: '/view2',
-        templateUrl: 'view2/view2.html'
+      .state('app.contacts', {
+        url: '/contacts',
+        views: {
+          'content@app': {
+            template: '<contacts-layout></contacts-layout>'
+          },
+          'master@app.contacts': {
+            template: '<contacts-list></contacts-list>'
+          },
+          'detail@app.contacts': {
+            template: '<contact-placeholder></contact-placeholder>'
+          }
+        }
       });
 
-      $urlRouterProvider.otherwise('/view1');
+      $urlRouterProvider.otherwise('/contacts');
   }]);
 });

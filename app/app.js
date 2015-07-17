@@ -3,12 +3,12 @@
 define([
   'angular',
   'uiRouter',
-  'view1/view1',
-  'view2/view2'
+  'structure/structure',
+  'contacts/contacts'
 ], function(angular) {
   return angular.module('portfolio', [
       'ui.router',
-      'portfolio.view1',
-      'portfolio.view2'
+      'portfolio.structure',
+      'portfolio.contacts'
   ]);
 });
