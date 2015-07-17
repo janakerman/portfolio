@@ -5,7 +5,7 @@ define([], function() {
         return {
             restrict: 'E',
             replace: true,
-            template: '<div class="nav-bar">nav-bar</div>'
+            templateUrl: '/app/structure/navBar/navBar.html'
         };
     };
 });

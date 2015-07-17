@@ -2,8 +2,8 @@
 
 define([
     'angular',
-    './layout',
-    './navBar',
+    './layout/layout',
+    './navBar/navBar',
     './content'
 ], function(angular, layout, navBar, content) {
     return angular.module('portfolio.structure', [])

@@ -1,3 +1,5 @@
-<ul>
-    <li ng-repeat="contact in contactListController.contacts">{{ contact }}</li>
-</ul>
+<table class="table">
+  <tr ng-repeat="contact in contactListController.contacts">
+    <td>{{ contact.attributes.username }}</td>
+  </tr>
+</table>

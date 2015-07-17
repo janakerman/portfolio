@@ -1,10 +1,11 @@
 'use strict';
 
-define([], function() {
+define(['Parse'], function(Parse) {
     return function() {
         return {
             getContacts: function() {
-                return ['Chris', 'Jan'];
+              var query = new Parse.Query(Parse.User);
+              return query.find();
             }
         };
     };
