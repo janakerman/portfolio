@@ -4,7 +4,7 @@ define(['./contactsListController'], function(contactListController) {
     return function() {
         return {
             restrict: 'E',
-            template: '<ul><li ng-repeat="contact in contactListController.contacts">{{ contact }}</li></ul>',
+            templateUrl: '/app/contacts/ui/contactsList/contactsList.html',
             controller: ['contactsService', contactListController],
             controllerAs: 'contactListController'
         };
