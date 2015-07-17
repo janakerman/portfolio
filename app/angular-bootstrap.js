@@ -4,7 +4,8 @@
 define([
     'angular',
     'app',
-    'routes'
+    'routes',
+    'parse-bootstrap'
 ], function (angular) {
     var $html = angular.element(document.getElementsByTagName('html')[0]);
     angular.element().ready(function() {

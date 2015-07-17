@@ -5,7 +5,7 @@ define(['./contactsListController'], function(contactListController) {
         return {
             restrict: 'E',
             templateUrl: '/app/contacts/ui/contactsList/contactsList.html',
-            controller: ['contactsService', contactListController],
+            controller: ['$scope', 'contactsService', contactListController],
             controllerAs: 'contactListController'
         };
     };
