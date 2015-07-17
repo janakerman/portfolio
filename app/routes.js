@@ -1,7 +1,7 @@
 'use strict';
 
 define(['app'], function(app) {
-  return app.config([
+  app.config([
     '$stateProvider', 
     '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
@@ -30,4 +30,16 @@ define(['app'], function(app) {
 
       $urlRouterProvider.otherwise('/contacts');
   }]);
+
+  // Check to see if the user is logged in on every state change. Otherwise don't let them navigate.
+  app.run(['$rootScope', 'authenticationService', function ($rootScope, authenticationService) {
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+      if (!authenticationService.isAuthenticated()) {
+        // go to state
+        // pop up modal
+      }
+    });
+  }]);
+
+  return app;
 });
