@@ -1,10 +1,14 @@
 'use strict';
 
-define([], function() {
+define(['./contactDetailController'], function(contactDetailController) {
     return function() {
         return {
             restrict: 'E',
-            template: 'contactDetail'
+            template: 'contactDetail',
+            scope: {
+            	contact: '='
+            },
+            controller: ['$scope', contactDetailController]
         };
     };
 });

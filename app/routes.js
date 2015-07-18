@@ -1,6 +1,10 @@
 'use strict';
 
-define(['app'], function(app) {
+define([
+    'app',
+    'common/routeController/routeController',
+    'contacts/ui/contactDetail/routeResolves'
+  ], function(app, routeController, contactDetailResolves) {
   app.config([
     '$stateProvider', 
     '$urlRouterProvider',
@@ -14,16 +18,33 @@ define(['app'], function(app) {
         }
       })
       .state('app.contacts', {
-        url: '/contacts',
+        abstract: true,
         views: {
           'content@app': {
             template: '<contacts-layout></contacts-layout>'
           },
           'master@app.contacts': {
             template: '<contacts-list></contacts-list>'
-          },
+          }
+        }
+      }).state('app.contacts.placeholder', {
+        url: '/contacts',
+        views: {
           'detail@app.contacts': {
             template: '<contact-placeholder></contact-placeholder>'
+          }
+        }
+      })
+      .state('app.contacts.detail', {
+        url: '/contacts/:id',
+        views: {
+          'detail@app.contacts': {
+            template: '<contact-detail contact="contact"></contact-detail>',
+            resolve: {
+              contact: contactDetailResolves
+            },
+            controller: routeController(['contact']),
+            controllerAs: 'dataController'
           }
         }
       });
