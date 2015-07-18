@@ -1,1 +1,1 @@
-An an application simply for learning AngularJS.
+A web application, simply for learning AngularJS.
