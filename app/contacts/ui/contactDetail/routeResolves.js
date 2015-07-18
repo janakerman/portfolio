@@ -1,7 +1,8 @@
 'use strict';
 
 define([], function() {
-  return function() {
-    return ['test', 'test'];
-  }
+  return ['$stateParams', 'contactsService', 
+    function($stateParams, contactsService) {
+      return contactsService.getContactById($stateParams.id);
+    }];
 });

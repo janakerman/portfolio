@@ -2,6 +2,6 @@
 
 define([], function() {
     return function($scope) {
-    	console.log($scope.contact);
+    	this.contact = $scope.contact;
     };
 });

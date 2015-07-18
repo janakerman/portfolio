@@ -1,5 +1,5 @@
 <table class="table">
   <tr ng-repeat="contact in contactListController.contacts">
-    <td>{{ contact.attributes.username }}</td>
+    <td ui-sref="app.contacts.detail({id: $index})">{{ contact.attributes.username }}</td>
   </tr>
 </table>

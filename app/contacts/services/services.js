@@ -5,5 +5,5 @@ define([
     './contactsService'
 ], function(angular, contactsService) {
     return angular.module('portfolio.contacts.services', [])
-        .factory('contactsService', [contactsService]);
+        .factory('contactsService', ['$q', contactsService]);
 });
