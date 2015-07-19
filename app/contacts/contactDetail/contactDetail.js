@@ -4,7 +4,7 @@ define(['./contactDetailController'], function(contactDetailController) {
     return function() {
         return {
             restrict: 'E',
-            templateUrl: '/app/contacts/ui/contactDetail/contactDetail.html',
+            templateUrl: '/app/contacts/contactDetail/contactDetail.html',
             scope: {
             	contact: '='
             },

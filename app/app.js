@@ -3,10 +3,10 @@
 define([
   'angular',
   'uiRouter',
-  'structure/structure',
-  'contacts/contacts',
-  'authentication/authentication',
-  'login/login'
+  'structure/structureModule',
+  'contacts/contactsModule',
+  'authentication/authenticationModule',
+  'login/loginModule',
 ], function(angular) {
   return angular.module('portfolio', [
       'ui.router',

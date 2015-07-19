@@ -2,8 +2,8 @@
 
 define([
     'angular',
-    './contactsService'
+    './contacts/contactsService'
 ], function(angular, contactsService) {
-    return angular.module('portfolio.contacts.services', [])
+    return angular.module('portfolio.dataServices', [])
         .factory('contactsService', ['$q', contactsService]);
 });

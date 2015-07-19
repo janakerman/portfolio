@@ -3,7 +3,7 @@
 define([
     'app',
     'common/routeController/routeController',
-    'contacts/ui/contactDetail/routeResolves'
+    'contacts/contactDetail/routeResolves'
   ], function(app, routeController, contactDetailResolves) {
   app.config([
     '$stateProvider', 

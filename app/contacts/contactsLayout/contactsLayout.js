@@ -5,7 +5,7 @@ define([], function() {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/app/contacts/ui/contactsLayout/contactsLayout'
+            templateUrl: '/app/contacts/contactsLayout/contactsLayout'
         };
     };
 });
