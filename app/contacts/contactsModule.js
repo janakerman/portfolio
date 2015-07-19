@@ -6,7 +6,7 @@ define([
     './contactsList/contactsList',
     './contactDetail/contactDetail',
     './contactPlaceholder/contactPlaceholder',
-  	'dataServices/dataServices'
+  	'dataServices/dataServicesModule'
 ], function(angular, contactsLayout, contactsList, contactDetail, contactPlaceholder) {
     return angular.module('portfolio.contacts', ['portfolio.dataServices'])
         .directive('contactsLayout', [contactsLayout])
