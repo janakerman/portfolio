@@ -1,9 +1,11 @@
 {
   "globalstrict": true,
   "jasmine": true,
+  "jquery": true,
   "globals": {
     // General
     "document": true,
+    "console": true,
 
     // AngularJS
     "angular": true,
