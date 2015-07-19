@@ -7,7 +7,6 @@ define([
   'contacts/contacts',
   'authentication/authentication',
   'login/login',
-  'contacts/services/services'
 ], function(angular) {
   return angular.module('portfolio', [
       'ui.router',
