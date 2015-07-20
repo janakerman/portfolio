@@ -3,6 +3,7 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
+
         jshint: {
             files: [
                 'Gruntfile.js',
@@ -12,13 +13,15 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             }
         },
+
         watch: {
-            files: ['app/**/*'],
+            files: ['app/**/*', 'Gruntfile.js'],
             tasks: ['build'],
             options: {
               livereload: true,
             }
         },
+
         'http-server': {
             dev: {
                 root: '.',
@@ -29,12 +32,58 @@ module.exports = function(grunt) {
                 ext: "html",
                 runInBackground: true
             }
+        },
+
+        clean: {
+          js: ["build/"]
+        },
+
+        copy: {
+          main: {
+            files: [{ expand: true, src: ['app/require-config.js', 'app/index.html'], dest: 'build/', flatten: true, filter: 'isFile' }]
+          },
+        },
+
+        requirejs: {
+          compile: {
+            options: {
+              name: "app",
+              baseUrl: "app/",
+              mainConfigFile: "app/require-config.js",
+              out: "build/portfolio.js",
+              include: ['../node_modules/requirejs/require.js', '../node_modules/jquery/dist/jquery.js', '../node_modules/bootstrap/dist/js/bootstrap.js'],
+              optimize: 'none',
+              generateSourceMaps: true,
+            }
+          }
+        },
+
+        less: {
+          development: {
+            options: {
+                compress: false,
+                yuicompress: false,
+                optimization: 2,
+                sourceMap: true,
+                sourceMapFilename: 'build/app.css.map',
+                sourceMapURL: 'app.css.map', 
+                sourceMapBasepath: 'build/'
+            },
+            files: {
+              "build/app.css": "app/app.less"
+            }
+          }
         }
+
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-http-server');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
     grunt.registerTask('default', 'dev');
 
@@ -42,8 +91,8 @@ module.exports = function(grunt) {
     grunt.registerTask('dev', ['build', 'watch']);
 
     // Builds and validates the project.
-    grunt.registerTask('build', ['jshint']);
+    grunt.registerTask('build', ['jshint', 'clean', 'copy', 'requirejs', 'less:development']);
 
     // Starts a HTTP server before running the dev task.
-    grunt.registerTask('dev:serve', ['http-server', 'dev']);
+    grunt.registerTask('serve', ['http-server', 'build', 'watch']);
 };
