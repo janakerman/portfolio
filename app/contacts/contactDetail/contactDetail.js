@@ -9,7 +9,7 @@ define(['./contactDetailController'], function(contactDetailController) {
             	contact: '='
             },
             controller: ['$scope', contactDetailController],
-            controllerAs: 'clientDetailController'
+            controllerAs: 'contactDetailController'
         };
     };
 });
