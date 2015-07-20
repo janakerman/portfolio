@@ -76,14 +76,9 @@ module.exports = function(grunt) {
         }
 
     });
-
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-http-server');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-less');
+    
+    // Load all grunt tasks from package.json automatically.
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('default', 'dev');
 
@@ -95,4 +90,6 @@ module.exports = function(grunt) {
 
     // Starts a HTTP server before running the dev task.
     grunt.registerTask('serve', ['http-server', 'build', 'watch']);
+
+    grunt.registerTask('serve:prod', '')
 };
