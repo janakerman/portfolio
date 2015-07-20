@@ -7,17 +7,16 @@ require.config({
         Parse: '../node_modules/parse/build/parse-latest'
     },
     shim: {
-        'angular': {'exports': 'angular'},
+        'angular': {
+          'exports': 'angular'
+        },
         'uiRouter': {
             deps: ['angular']
         },
-        'Parse': {'exports': 'Parse'},
+        'Parse': {
+          'exports': 'Parse'
+        },
     },
-    priority: [
-        "angular"
-    ],
-    deps: [
-    // Trigger angular bootstrap.
-        'angular-bootstrap'
-    ]
+    priority: ['angular'],
+    deps: ['angular-bootstrap']
 });
