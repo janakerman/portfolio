@@ -82,8 +82,8 @@ module.exports = function(grunt) {
               mainConfigFile: "app/require-config.js",
               out: "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.js",
               include: ['../node_modules/requirejs/require.js', '../node_modules/jquery/dist/jquery.js', '../node_modules/bootstrap/dist/js/bootstrap.js'],
-              optimize: 'uglify',
               preserveLicenseComments: false
+              optimize: 'none',
             }
           }
         },
