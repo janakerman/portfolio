@@ -4,6 +4,25 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
 
+        pkg: grunt.file.readJSON('package.json'),
+
+        config: {
+          dev: {
+            options: {
+              variables: {
+                'outputFolder': 'dev/'
+              }
+            }
+          },
+          prod: {
+            options: {
+              variables: {
+                'outputFolder': 'prod/'
+              }
+            }
+          }
+        },
+
         jshint: {
             files: [
                 'Gruntfile.js',
@@ -35,25 +54,36 @@ module.exports = function(grunt) {
         },
 
         clean: {
-          js: ["build/"]
+          js: ["<%= grunt.config.get('outputFolder') %>"]
         },
 
         copy: {
           main: {
-            files: [{ expand: true, src: ['app/require-config.js', 'app/index.html'], dest: 'build/', flatten: true, filter: 'isFile' }]
+            files: [{ expand: true, src: ['app/require-config.js', 'app/index.html'], dest: "<%= grunt.config.get('outputFolder') %>/", flatten: true, filter: 'isFile' }]
           },
         },
 
         requirejs: {
-          compile: {
+          development: {
             options: {
               name: "app",
               baseUrl: "app/",
               mainConfigFile: "app/require-config.js",
-              out: "build/portfolio.js",
+              out: "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.js",
               include: ['../node_modules/requirejs/require.js', '../node_modules/jquery/dist/jquery.js', '../node_modules/bootstrap/dist/js/bootstrap.js'],
               optimize: 'none',
               generateSourceMaps: true,
+            }
+          },
+          production: {
+            options: {
+              name: "app",
+              baseUrl: "app/",
+              mainConfigFile: "app/require-config.js",
+              out: "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.js",
+              include: ['../node_modules/requirejs/require.js', '../node_modules/jquery/dist/jquery.js', '../node_modules/bootstrap/dist/js/bootstrap.js'],
+              optimize: 'uglify',
+              preserveLicenseComments: false
             }
           }
         },
@@ -61,16 +91,28 @@ module.exports = function(grunt) {
         less: {
           development: {
             options: {
+                strictImports: true,
                 compress: false,
                 yuicompress: false,
                 optimization: 2,
                 sourceMap: true,
-                sourceMapFilename: 'build/app.css.map',
-                sourceMapURL: 'app.css.map', 
-                sourceMapBasepath: 'build/'
+                sourceMapFilename: "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.css.map",
+                sourceMapURL: "<%= pkg.name %>.css.map", 
+                sourceMapBasepath: "<%= grunt.config.get('outputFolder') %>/"
             },
             files: {
-              "build/app.css": "app/app.less"
+              "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.css": "app/app.less"
+            }
+          },
+          production: {
+            options: {
+                strictImports: true,
+                compress: true,
+                optimization: 1,
+                yuicompress: true
+            },
+            files: {
+              "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.css": "app/app.less"   
             }
           }
         }
@@ -80,16 +122,17 @@ module.exports = function(grunt) {
     // Load all grunt tasks from package.json automatically.
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-    grunt.registerTask('default', 'dev');
+    grunt.registerTask('default', 'serve:dev');
 
     // Builds the project then watches for any changes.
     grunt.registerTask('dev', ['build', 'watch']);
 
+    var commonAssembleTasks =  ['jshint', 'clean', 'copy'];
+
     // Builds and validates the project.
-    grunt.registerTask('build', ['jshint', 'clean', 'copy', 'requirejs', 'less:development']);
+    grunt.registerTask('build:dev', commonAssembleTasks.concat(['requirejs:development', 'less:development']));
+    grunt.registerTask('build:prod', commonAssembleTasks.concat(['requirejs:production', 'less:production']));
 
-    // Starts a HTTP server before running the dev task.
-    grunt.registerTask('serve', ['http-server', 'build', 'watch']);
-
-    grunt.registerTask('serve:prod', '')
+    grunt.registerTask('serve:dev', ['config:dev', 'http-server', 'build:dev', 'watch']);
+    grunt.registerTask('serve:prod', ['config:prod', 'http-server', 'build:prod', 'watch']);
 };

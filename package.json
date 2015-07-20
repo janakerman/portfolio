@@ -1,5 +1,5 @@
 {
-  "name": "angular-seed",
+  "name": "portfolio",
   "private": true,
   "version": "0.0.0",
   "description": "A starter project for AngularJS",
@@ -7,6 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-config": "^0.3.1",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-jshint": "^0.11.2",
