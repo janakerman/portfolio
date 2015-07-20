@@ -115,6 +115,18 @@ module.exports = function(grunt) {
               "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.css": "app/app.less"   
             }
           }
+        },
+
+        htmlmin: {
+            production: {
+              options: {
+                removeComments: true,
+                collapseWhitespace: true
+              },
+              files: {
+                "<%= grunt.config.get('outputFolder') %>/index.html": "<%= grunt.config.get('outputFolder') %>/index.html"
+              }
+            }
         }
 
     });
@@ -131,7 +143,7 @@ module.exports = function(grunt) {
 
     // Builds and validates the project.
     grunt.registerTask('build:dev', commonAssembleTasks.concat(['requirejs:development', 'less:development']));
-    grunt.registerTask('build:prod', commonAssembleTasks.concat(['requirejs:production', 'less:production']));
+    grunt.registerTask('build:prod', commonAssembleTasks.concat(['requirejs:production', 'less:production', 'htmlmin:production']));
 
     grunt.registerTask('serve:dev', ['config:dev', 'http-server', 'build:dev', 'watch']);
     grunt.registerTask('serve:prod', ['config:prod', 'http-server', 'build:prod', 'watch']);
