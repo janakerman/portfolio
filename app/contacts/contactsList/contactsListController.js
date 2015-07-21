@@ -14,6 +14,15 @@ define([], function() {
       this.currentPage = 0;
       this.numberOfContacts = 0;
 
+      $scope.$watch(
+        function() {
+          return self.searchTerm;
+        },
+        function(newValue, oldValue) {
+          self.updateNumberOfResults();
+        }
+      );
+
       this.pageChanged = function() {
         self.updateResults();
       };
@@ -23,19 +32,19 @@ define([], function() {
       };
 
       this.updateResults = function() {
-        self.getResultsPage(self.currentPage, self.sortType, self.sortReverse);
+        self.getResultsPage(self.currentPage, self.sortType, self.sortReverse, self.searchTerm);
       };
 
       this.updateNumberOfResults = function() {
-        var numberOfContactsPromise = contactsService.getNumberOfContacts();
+        var numberOfContactsPromise = contactsService.getNumberOfContacts(self.searchTerm);
         numberOfContactsPromise.then(function(numberOfContacts) {
           self.numberOfContacts = numberOfContacts;
           self.pageChanged();
         });
       };
 
-      this.getResultsPage = function(pageNumber, sortKey, descending) {
-        var contactsPagePromise = contactsService.getContactsListPage(pageNumber, self.itemsPerPage, sortKey, descending);
+      this.getResultsPage = function(pageNumber, sortKey, descending, searchTerm) {
+        var contactsPagePromise = contactsService.getContactsListPage(pageNumber, self.itemsPerPage, sortKey, descending, searchTerm);
         contactsPagePromise.then(function(contacts) {
           self.contacts = contacts;
           $scope.$apply();

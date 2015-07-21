@@ -30,14 +30,9 @@
       </a>
     </td>
   </thead>
-<<<<<<< HEAD
-  <tr ng-repeat="contact in contactListController.contacts | orderBy:contactListController.sortType:contactListController.sortReverse | filter:contactListController.searchTerm"
-      ui-sref="app.contacts.detail.main({id: $index})">
-=======
 
-  <tr ng-repeat="contact in contactListController.contacts | filter:contactListController.searchTerm"
-      ui-sref="app.contacts.detail({id: $index})">
->>>>>>> Sorting is now done on the server. Filtering doesn't
+  <tr ng-repeat="contact in contactListController.contacts"
+      ui-sref="app.contacts.detail.main({id: contact.attributes.username})">
     <td>{{ contact.attributes.username }}</td>
     <td>{{ contact.attributes.email }}</td>
   </tr>

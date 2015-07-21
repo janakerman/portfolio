@@ -1,5 +1,5 @@
 <div class="well">
-	<h1>{{ contactDetailController.contact.name }}</h1>
+	<h1>{{ contactDetailController.contact.attributes.username }}</h1>
 	<tab-bar titles="contactDetailController.titles" tab-selected="contactDetailController.tabSelected"></tab-bar>
 	<div ui-view="contact-detail-tab"></div>
 </div>
