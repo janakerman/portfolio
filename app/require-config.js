@@ -3,7 +3,7 @@
 require.config({
     paths: {
         angular: '../node_modules/angular/angular',
-        uiRouter: '../node_modules/ui-router/angular-ui-router',
+        uiRouter: '../node_modules/angular-ui-router/release/angular-ui-router',
         Parse: '../node_modules/parse/build/parse-latest'
     },
     shim: {
