@@ -7,7 +7,7 @@ define(['./loginController'], function(loginController) {
       replace: true,
       templateUrl: '/app/login/loginForm.html',
       controllerAs: 'loginController',
-      controller: loginController
+      controller: ['$scope', 'authenticationService', loginController]
     };
   };
 });
