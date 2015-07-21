@@ -4,6 +4,25 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
 
+        pkg: grunt.file.readJSON('package.json'),
+
+        config: {
+          dev: {
+            options: {
+              variables: {
+                'outputFolder': 'dev/'
+              }
+            }
+          },
+          prod: {
+            options: {
+              variables: {
+                'outputFolder': 'prod/'
+              }
+            }
+          }
+        },
+
         jshint: {
             files: [
                 'Gruntfile.js',
@@ -15,11 +34,20 @@ module.exports = function(grunt) {
         },
 
         watch: {
+          dev: {
             files: ['app/**/*', 'Gruntfile.js'],
-            tasks: ['build'],
+            tasks: ['build:dev'],
             options: {
               livereload: true,
             }
+          },
+          prod: {
+            files: ['app/**/*', 'Gruntfile.js'],
+            tasks: ['build:prod'],
+            options: {
+              livereload: true,
+            }
+          }
         },
 
         'http-server': {
@@ -35,64 +63,94 @@ module.exports = function(grunt) {
         },
 
         clean: {
-          js: ["build/"]
+          js: ["<%= grunt.config.get('outputFolder') %>"]
         },
 
         copy: {
           main: {
-            files: [{ expand: true, src: ['app/require-config.js', 'app/index.html'], dest: 'build/', flatten: true, filter: 'isFile' }]
+            files: [{ expand: true, src: ['app/require-config.js', 'app/index.html'], dest: "<%= grunt.config.get('outputFolder') %>/", flatten: true, filter: 'isFile' }]
           },
         },
 
         requirejs: {
-          compile: {
+          dev: {
             options: {
               name: "app",
               baseUrl: "app/",
               mainConfigFile: "app/require-config.js",
-              out: "build/portfolio.js",
+              out: "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.js",
               include: ['../node_modules/requirejs/require.js', '../node_modules/jquery/dist/jquery.js', '../node_modules/bootstrap/dist/js/bootstrap.js'],
               optimize: 'none',
               generateSourceMaps: true,
+            }
+          },
+          prod: {
+            options: {
+              name: "app",
+              baseUrl: "app/",
+              mainConfigFile: "app/require-config.js",
+              out: "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.js",
+              include: ['../node_modules/requirejs/require.js', '../node_modules/jquery/dist/jquery.js', '../node_modules/bootstrap/dist/js/bootstrap.js'],
+              preserveLicenseComments: false,
+              optimize: 'uglify'
             }
           }
         },
 
         less: {
-          development: {
+          dev: {
             options: {
+                strictImports: true,
                 compress: false,
                 yuicompress: false,
                 optimization: 2,
                 sourceMap: true,
-                sourceMapFilename: 'build/app.css.map',
-                sourceMapURL: 'app.css.map', 
-                sourceMapBasepath: 'build/'
+                sourceMapFilename: "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.css.map",
+                sourceMapURL: "<%= pkg.name %>.css.map", 
+                sourceMapBasepath: "<%= grunt.config.get('outputFolder') %>/"
             },
             files: {
-              "build/app.css": "app/app.less"
+              "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.css": "app/app.less"
+            }
+          },
+          prod: {
+            options: {
+                strictImports: true,
+                compress: true,
+                optimization: 1,
+                yuicompress: true
+            },
+            files: {
+              "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.css": "app/app.less"   
             }
           }
+        },
+
+        htmlmin: {
+            prod: {
+              options: {
+                removeComments: true,
+                collapseWhitespace: true
+              },
+              files: {
+                "<%= grunt.config.get('outputFolder') %>/index.html": "<%= grunt.config.get('outputFolder') %>/index.html"
+              }
+            }
         }
 
     });
+    
+    // Load all grunt tasks from package.json automatically.
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-http-server');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.registerTask('default', 'serve:dev');
 
-    grunt.registerTask('default', 'dev');
-
-    // Builds the project then watches for any changes.
-    grunt.registerTask('dev', ['build', 'watch']);
+    var commonAssembleTasks =  ['jshint', 'clean', 'copy'];
 
     // Builds and validates the project.
-    grunt.registerTask('build', ['jshint', 'clean', 'copy', 'requirejs', 'less:development']);
+    grunt.registerTask('build:dev', ['config:dev'].concat(commonAssembleTasks.concat(['requirejs:dev', 'less:dev'])));
+    grunt.registerTask('build:prod', ['config:prod'].concat(commonAssembleTasks.concat(['requirejs:prod', 'less:prod', 'htmlmin:prod'])));
 
-    // Starts a HTTP server before running the dev task.
-    grunt.registerTask('serve', ['http-server', 'build', 'watch']);
+    grunt.registerTask('serve:dev', ['http-server', 'build:dev', 'watch:dev']);
+    grunt.registerTask('serve:prod', ['http-server', 'build:prod', 'watch:prod']);
 };
