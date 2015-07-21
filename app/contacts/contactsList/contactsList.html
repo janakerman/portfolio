@@ -1,5 +1,54 @@
-<table class="table">
-  <tr ng-repeat="contact in contactListController.contacts">
-    <td ui-sref="app.contacts.detail.main({id: $index})">{{ contact.attributes.username }}</td>
+<div class="alert alert-info">
+    <p>Sort Type: {{ contactListController.sortType }}</p>
+    <p>Sort Reverse: {{ contactListController.sortReverse }}</p>
+    <p>Search Query: {{ contactListController.searchTerm }}</p>
+</div>
+
+<form>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+      <input type="text" class="form-control" placeholder="Search contacts" ng-model="contactListController.searchTerm">
+    </div>
+  </div>
+</form>
+
+<table class="table table-hover">
+  <thead>
+    <td>
+      <a href="#" ng-click="contactListController.sortType = 'attributes.username'; contactListController.sortReverse = !contactListController.sortReverse">
+        Name
+        <span ng-show="contactListController.sortType == 'attributes.username' && !contactListController.sortReverse" 
+              class="glyphicon glyphicon-chevron-down" 
+              aria-hidden="true">
+        </span>
+        <span ng-show="contactListController.sortType == 'attributes.username' && contactListController.sortReverse" 
+              class="glyphicon glyphicon-chevron-up" 
+              aria-hidden="true">
+        </span>
+      </a>
+    </td>
+    <td>
+      <a href="#" ng-click="contactListController.sortType = 'attributes.email'; contactListController.sortReverse = !contactListController.sortReverse">
+        Email
+        <span ng-show="contactListController.sortType == 'attributes.email' && !contactListController.sortReverse" 
+              class="glyphicon glyphicon-chevron-down" 
+              aria-hidden="true">
+        </span>
+        <span ng-show="contactListController.sortType == 'attributes.email' && contactListController.sortReverse" 
+              class="glyphicon glyphicon-chevron-up" 
+              aria-hidden="true">
+        </span>
+      </a>
+    </td>
+    <td>Created</td>
+    <td>Updated</td>
+  </thead>
+  <tr ng-repeat="contact in contactListController.contacts | orderBy:contactListController.sortType:contactListController.sortReverse | filter:contactListController.searchTerm"
+      ui-sref="app.contacts.detail.main({id: $index})">
+    <td>{{ contact.attributes.username }}</td>
+    <td>{{ contact.attributes.email }}</td>
+    <td>{{ contact.createdAt }}</td>
+    <td>{{ contact.updatedAt }}</td>
   </tr>
 </table>
