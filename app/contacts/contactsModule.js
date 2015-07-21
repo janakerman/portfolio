@@ -4,12 +4,14 @@ define([
     'angular',
     './contactsLayout/contactsLayout',
     './contactsList/contactsList',
-    './contactDetail/contactDetailController',
-    './contactPlaceholder/contactPlaceholder',
+    './contactView/contactDetail/contactDetailController',
+    './contactView/contactPlaceholder/contactPlaceholder',
+    './contactView/contactPortfolio/contactPortfolioController',
   	'dataServices/dataServicesModule',
-    'commonUI/commonUIModule'
-], function(angular, contactsLayout, contactsList, ContactDetailController, contactPlaceholder) {
-    return angular.module('portfolio.contacts', ['portfolio.dataServices', 'portfolio.commonUI'])
+    'commonUI/commonUIModule',
+    'dashboard/dashboardModule',
+], function(angular, contactsLayout, contactsList, ContactDetailController, contactPlaceholder, ContactPortfolioController) {
+    return angular.module('portfolio.contacts', ['portfolio.dataServices', 'portfolio.commonUI', 'portfolio.dashboard'])
         .directive('contactsLayout', [contactsLayout])
         .directive('contactsList', [contactsList])
         .directive('contactPlaceholder', [contactPlaceholder])
@@ -42,7 +44,7 @@ define([
                     url: '/:id',
                     views: {
                         'detail@app.contacts': {
-                            templateUrl: '/app/contacts/contactDetail/contactDetail.html',
+                            templateUrl: '/app/contacts/contactView/contactDetail/contactDetail.html',
                             resolve: ContactDetailController.resolve,
                             controller: ['$state', 'contact', ContactDetailController],
                             controllerAs: 'contactDetailController'
@@ -53,7 +55,7 @@ define([
                     url: '',
                     views: {
                         'contact-detail-tab@app.contacts.detail': {
-                            template: 'main detail'
+                            templateUrl: '/app/contacts/contactView/contactSummary/contactSummary.html'
                         }
                     }
                 })
@@ -61,7 +63,10 @@ define([
                     url: '/portfolio',
                     views: {
                         'contact-detail-tab@app.contacts.detail': {
-                            template: 'portfolio'
+                            templateUrl: '/app/contacts/contactView/contactPortfolio/contactPortfolio.html',
+                            resolve: ContactPortfolioController.resolve,
+                            controller: ['holdings', ContactPortfolioController],
+                            controllerAs: 'contactPortfolioController'
                         }
                     }
                 });
