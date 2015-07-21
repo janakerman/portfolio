@@ -18,9 +18,31 @@ define(['Parse'], function(Parse) {
     		return $q(function(resolve) { resolve(hardCodedContacts[id]); });
         };
 
+        var getContactsListPage = function(pageNumber, pageCount, sortKey, descending) {
+            var query = new Parse.Query(Parse.User);
+            query.limit(pageCount);
+            if (sortKey !== undefined) {
+              if (descending) {
+                query.descending(sortKey);
+              }
+              else {
+                query.ascending(sortKey);
+              }
+            }
+            query.skip(pageNumber * pageCount);
+            return query.find();
+        };
+
+        var getNumberOfContacts = function() {
+            var query = new Parse.Query(Parse.User);
+            return query.count();
+        };
+
         return {
             getContacts: getContacts,
-            getContactById: getContactById
+            getContactById: getContactById,
+            getContactsListPage: getContactsListPage,
+            getNumberOfContacts: getNumberOfContacts
         };
     };
 });
