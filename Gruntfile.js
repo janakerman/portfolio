@@ -34,11 +34,20 @@ module.exports = function(grunt) {
         },
 
         watch: {
+          dev: {
             files: ['app/**/*', 'Gruntfile.js'],
-            tasks: ['build'],
+            tasks: ['build:dev'],
             options: {
               livereload: true,
             }
+          },
+          prod: {
+            files: ['app/**/*', 'Gruntfile.js'],
+            tasks: ['build:prod'],
+            options: {
+              livereload: true,
+            }
+          }
         },
 
         'http-server': {
@@ -64,7 +73,7 @@ module.exports = function(grunt) {
         },
 
         requirejs: {
-          development: {
+          dev: {
             options: {
               name: "app",
               baseUrl: "app/",
@@ -75,21 +84,21 @@ module.exports = function(grunt) {
               generateSourceMaps: true,
             }
           },
-          production: {
+          prod: {
             options: {
               name: "app",
               baseUrl: "app/",
               mainConfigFile: "app/require-config.js",
               out: "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.js",
               include: ['../node_modules/requirejs/require.js', '../node_modules/jquery/dist/jquery.js', '../node_modules/bootstrap/dist/js/bootstrap.js'],
-              preserveLicenseComments: false
-              optimize: 'none',
+              preserveLicenseComments: false,
+              optimize: 'none'
             }
           }
         },
 
         less: {
-          development: {
+          dev: {
             options: {
                 strictImports: true,
                 compress: false,
@@ -104,7 +113,7 @@ module.exports = function(grunt) {
               "<%= grunt.config.get('outputFolder') %>/<%= pkg.name %>.css": "app/app.less"
             }
           },
-          production: {
+          prod: {
             options: {
                 strictImports: true,
                 compress: true,
@@ -118,7 +127,7 @@ module.exports = function(grunt) {
         },
 
         htmlmin: {
-            production: {
+            prod: {
               options: {
                 removeComments: true,
                 collapseWhitespace: true
@@ -136,15 +145,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', 'serve:dev');
 
-    // Builds the project then watches for any changes.
-    grunt.registerTask('dev', ['build', 'watch']);
-
     var commonAssembleTasks =  ['jshint', 'clean', 'copy'];
 
     // Builds and validates the project.
-    grunt.registerTask('build:dev', commonAssembleTasks.concat(['requirejs:development', 'less:development']));
-    grunt.registerTask('build:prod', commonAssembleTasks.concat(['requirejs:production', 'less:production', 'htmlmin:production']));
+    grunt.registerTask('build:dev', ['config:dev'].concat(commonAssembleTasks.concat(['requirejs:dev', 'less:dev'])));
+    grunt.registerTask('build:prod', ['config:prod'].concat(commonAssembleTasks.concat(['requirejs:prod', 'less:prod', 'htmlmin:prod'])));
 
-    grunt.registerTask('serve:dev', ['config:dev', 'http-server', 'build:dev', 'watch']);
-    grunt.registerTask('serve:prod', ['config:prod', 'http-server', 'build:prod', 'watch']);
+    grunt.registerTask('serve:dev', ['http-server', 'build:dev', 'watch:dev']);
+    grunt.registerTask('serve:prod', ['http-server', 'build:prod', 'watch:prod']);
 };
