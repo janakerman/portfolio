@@ -1,5 +1,63 @@
-<table class="table">
-  <tr ng-repeat="contact in contactListController.contacts">
-    <td ui-sref="app.contacts.detail.main({id: $index})">{{ contact.attributes.username }}</td>
+<form>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+      <input type="text" class="form-control" placeholder="Search contacts" ng-model="contactListController.searchTerm">
+    </div>
+  </div>
+</form>
+
+<table class="table table-hover">
+  <thead>
+    <td>
+      <a href="#" ng-click="contactListController.sortClicked('username')">
+        Name
+        <span ng-show="contactListController.sortType == 'username'"
+              ng-class="contactListController.sortReverse ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"
+              class="glyphicon"
+              aria-hidden="true">
+        </span>
+      </a>
+    </td>
+    <td>
+      <a href="#" ng-click="contactListController.sortClicked('email')">
+        Email
+        <span ng-show="contactListController.sortType == 'email'"
+              ng-class="contactListController.sortReverse ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"
+              class="glyphicon"
+              aria-hidden="true">
+        </span>
+      </a>
+    </td>
+  </thead>
+
+  <tr ng-repeat="contact in contactListController.contacts"
+      ui-sref="app.contacts.detail.main({id: contact.attributes.username})">
+    <td>{{ contact.attributes.username }}</td>
+    <td>{{ contact.attributes.email }}</td>
   </tr>
+
+  <tfoot>
+      <td colspan="3">
+        <nav class='text-center'>
+          <ul class="pagination">
+            <li ng-class="contactListController.prevPageDisabled()">
+              <a href ng-click="contactListController.prevPage()" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li ng-repeat="n in contactListController.range()"
+              ng-class="{active: n == contactListController.currentPage}" ng-click="contactListController.setPage(n)">
+              <a href="#">{{n+1}}</a>
+            </li>
+            <li ng-class="contactListController.nextPageDisabled()">
+              <a href ng-click="contactListController.nextPage()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </td>
+    </tfoot>
+
 </table>
