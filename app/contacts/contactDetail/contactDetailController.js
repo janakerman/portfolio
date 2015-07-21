@@ -2,16 +2,16 @@
 
 define([], function() {
 
-    var contactDetailController = function($scope) {
-    	this.contact = $scope.contact;
+    var ContactDetailController = function(contact) {
+    	this.contact = contact;
     };
 
-    contactDetailController.resolve =  {
+    ContactDetailController.resolve =  {
         contact: ['$stateParams', 'contactsService',
             function($stateParams, contactsService) {
                 return contactsService.getContactById($stateParams.id);
             }]
     };
 
-    return contactDetailController;
+    return ContactDetailController;
 });

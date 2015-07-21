@@ -4,16 +4,13 @@ define([
     'angular',
     './contactsLayout/contactsLayout',
     './contactsList/contactsList',
-    './contactDetail/contactDetail',
     './contactDetail/contactDetailController',
     './contactPlaceholder/contactPlaceholder',
-    'common/routeController/routeController',
   	'dataServices/dataServicesModule',
-], function(angular, contactsLayout, contactsList, contactDetail, contactDetailController, contactPlaceholder, routeController) {
+], function(angular, contactsLayout, contactsList, ContactDetailController, contactPlaceholder) {
     return angular.module('portfolio.contacts', ['portfolio.dataServices'])
         .directive('contactsLayout', [contactsLayout])
         .directive('contactsList', [contactsList])
-        .directive('contactDetail', [contactDetail])
         .directive('contactPlaceholder', [contactPlaceholder])
 
         .config([
@@ -29,7 +26,8 @@ define([
                             template: '<contacts-list></contacts-list>'
                         }
                     }
-                }).state('app.contacts.placeholder', {
+                })
+                .state('app.contacts.placeholder', {
                     url: '/contacts',
                     views: {
                         'detail@app.contacts': {
@@ -37,17 +35,17 @@ define([
                         }
                     }
                 })
-                    .state('app.contacts.detail', {
-                        url: '/contacts/:id',
-                        views: {
-                            'detail@app.contacts': {
-                                template: '<contact-detail contact="contact"></contact-detail>',
-                                resolve: contactDetailController.resolve,
-                                controller: routeController(['contact']),
-                                controllerAs: 'dataController'
-                            }
+                .state('app.contacts.detail', {
+                    url: '/contacts/:id',
+                    views: {
+                        'detail@app.contacts': {
+                            templateUrl: '/app/contacts/contactDetail/contactDetail.html',
+                            resolve: ContactDetailController.resolve,
+                            controller: ['contact', ContactDetailController],
+                            controllerAs: 'contactDetailController'
                         }
-                    });
+                    }
+                });
 
             }]);
 });
