@@ -68,7 +68,10 @@ module.exports = function(grunt) {
 
         copy: {
           main: {
-            files: [{ expand: true, src: ['app/require-config.js', 'app/index.html'], dest: "<%= grunt.config.get('outputFolder') %>/", flatten: true, filter: 'isFile' }]
+            files: [
+              { expand: true, src: ['app/require-config.js', 'app/index.html'], dest: "<%= grunt.config.get('outputFolder') %>/", flatten: true, filter: 'isFile' },
+              { expand: true, src: ['node_modules/bootstrap/fonts/**.*'], dest: "<%= grunt.config.get('outputFolder') %>/fonts/", flatten: true, filter: 'isFile' },
+            ]
           },
         },
 
