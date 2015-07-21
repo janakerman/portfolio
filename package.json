@@ -42,10 +42,10 @@
   "dependencies": {
     "angular": "^1.4.3",
     "angular-route": "^1.4.3",
+    "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
+    "jquery": "~2.1.4",
     "parse": "^1.5.0",
-    "requirejs": "^2.1.19",
-    "ui-router": "0.0.1",
-    "jquery": "~2.1.4"
+    "requirejs": "^2.1.19"
   }
 }
