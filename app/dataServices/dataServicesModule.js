@@ -7,5 +7,5 @@ define([
 ], function(angular, contactsService, financeService) {
     return angular.module('portfolio.dataServices', [])
         .factory('contactsService', ['$q', contactsService])
-        .factory('finance', ['$q', '$http', financeService]);
+        .factory('financeService', ['$q', '$http', financeService]);
 });

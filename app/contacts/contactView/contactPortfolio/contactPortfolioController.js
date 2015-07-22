@@ -9,8 +9,8 @@ define([], function() {
     ContactPortfolioController.resolve =  {
         holdings: ['financeService', function(financeService) {
 
-            return financeService.getSymbol('GOOG').then(function(symbol) {
-                return [symbol, symbol, symbol, symbol];
+            return financeService.getInstrument('GOOG').then(function(instrument) {
+                return [instrument];
             });
         }]
     };
