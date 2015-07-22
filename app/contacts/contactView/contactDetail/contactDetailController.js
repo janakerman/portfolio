@@ -2,25 +2,46 @@
 
 define([], function() {
 
-    var ContactDetailController = function($state, contact) {
+    var ContactDetailController = function($rootScope, $scope, $state, contact) {
         var self = this;
 
-    	this.contact = contact;
-
-        this.states = [{
-            title: 'Detail',
-            state: 'main'
+        // Temporary hard coded states
+        var states = [{
+            name: 'app.contacts.detail.main',
+            title: 'Details'
         },
         {
-            title: 'Portfolio',
-            state: 'portfolio'
+            name: 'app.contacts.detail.portfolio',
+            title: 'Portfolio'
         }];
 
-        this.titles = this.states.map(function(state) { return state.title; });
+        function stateNames() {
+            return states.map(function(state) { return state.name; });
+        }
 
-        this.tabSelected = function(index) {
-            $state.go('^.' + self.states[index].state);
-        };
+        function stateTitles () {
+            return states.map(function(state) { return state.title; });
+        }
+
+        function setTabIndexFromStateName(stateName) {
+            self.tabIndex = stateNames().indexOf(stateName);
+        }
+
+        self.contact = contact;
+
+        self.titles = stateTitles();
+
+        setTabIndexFromStateName($state.current.name);
+
+        $scope.$watch(function() {
+            return self.tabIndex;
+        }, function(newIndex) {
+            $state.go(stateNames()[newIndex]);
+        });
+
+        $rootScope.$on('$stateChangeSuccess', function(event, toState){
+           setTabIndexFromStateName(toState.name);
+        });
     };
 
     ContactDetailController.resolve =  {
