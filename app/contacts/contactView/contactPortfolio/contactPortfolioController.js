@@ -7,11 +7,8 @@ define([], function() {
     };
 
     ContactPortfolioController.resolve =  {
-        holdings: ['financeService', function(financeService) {
-
-            return financeService.getInstrument('GOOG').then(function(instrument) {
-                return [instrument];
-            });
+        holdings: ['$stateParams', 'portfolioService', function($stateParams, portfolioService) {
+            return portfolioService.getPortfolioSummary($stateParams.id);
         }]
     };
 
