@@ -38,26 +38,12 @@
   </tr>
 
   <tfoot>
-      <td colspan="3">
-        <nav class='text-center'>
-          <ul class="pagination">
-            <li ng-class="contactListController.prevPageDisabled()">
-              <a href ng-click="contactListController.prevPage()" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li ng-repeat="n in contactListController.range()"
-              ng-class="{active: n == contactListController.currentPage}" ng-click="contactListController.setPage(n)">
-              <a href="#">{{n+1}}</a>
-            </li>
-            <li ng-class="contactListController.nextPageDisabled()">
-              <a href ng-click="contactListController.nextPage()" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </td>
-    </tfoot>
+    <td colspan="3">
+      <pagination-bar current-page="contactListController.currentPage" 
+                      number-of-items="contactListController.numberOfContacts"
+                      page-changed="contactListController.pageChanged">
+      </pagination-bar>
+    </td>
+  </tfoot>
 
 </table>
