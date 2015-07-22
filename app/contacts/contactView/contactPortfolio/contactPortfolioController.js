@@ -7,14 +7,12 @@ define([], function() {
     };
 
     ContactPortfolioController.resolve =  {
-        holdings: function() {
-            return [
-                { company: 'Google', symbol: 'GOOG', price: '300', change: '0.03' },
-                { company: 'Google', symbol: 'GOOG', price: '300', change: '0.03' },
-                { company: 'Google', symbol: 'GOOG', price: '300', change: '0.03' },
-                { company: 'Google', symbol: 'GOOG', price: '300', change: '0.03' }
-            ];
-        }
+        holdings: ['financeService', function(financeService) {
+
+            return financeService.getSymbol('GOOG').then(function(symbol) {
+                return [symbol, symbol, symbol, symbol];
+            });
+        }]
     };
 
     return ContactPortfolioController;

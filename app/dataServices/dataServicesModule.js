@@ -2,8 +2,10 @@
 
 define([
     'angular',
-    './contacts/contactsService'
-], function(angular, contactsService) {
+    './contacts/contactsService',
+    './finance/financeService',
+], function(angular, contactsService, financeService) {
     return angular.module('portfolio.dataServices', [])
-        .factory('contactsService', ['$q', contactsService]);
+        .factory('contactsService', ['$q', contactsService])
+        .factory('finance', ['$q', '$http', financeService]);
 });
