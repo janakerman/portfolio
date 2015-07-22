@@ -23,7 +23,8 @@ define([], function() {
         }
       );
 
-      this.pageChanged = function() {
+      this.pageChanged = function(n) {
+        self.currentPage = n;
         self.updateResults();
       };
 
@@ -39,7 +40,7 @@ define([], function() {
         var numberOfContactsPromise = contactsService.getNumberOfContacts(self.searchTerm);
         numberOfContactsPromise.then(function(numberOfContacts) {
           self.numberOfContacts = numberOfContacts;
-          self.pageChanged();
+          self.pageChanged(self.currentPage);
         });
       };
 
@@ -60,57 +61,6 @@ define([], function() {
           self.sortReverse = false;          
         }
         self.updateResults();
-      };
-
-      this.prevPage = function() {
-        if (self.currentPage > 0) {
-          self.currentPage--;
-          self.pageChanged();
-        }
-      };
-
-      this.prevPageDisabled = function() {
-        return this.currentPage === 0 ? "disabled" : "";
-      };
-
-      this.nextPage = function() {
-        if (self.currentPage < self.pageCount()) {
-          self.currentPage++;
-          self.pageChanged();
-        }
-      };
-
-      this.nextPageDisabled = function() {
-        return this.currentPage === self.pageCount() ? "disabled" : "";
-      };
-
-      this.pageCount = function() {
-        return Math.ceil(self.numberOfContacts / self.itemsPerPage) - 1;
-      };
-
-      this.setPage = function(n) {
-        self.currentPage = n;
-        self.pageChanged();
-      };
-
-      this.range = function() {
-        var rangeSize = 5;
-        var ret = [];
-        var start;
-
-        start = self.currentPage;
-
-        if (start > self.pageCount() - rangeSize) {
-          start = self.pageCount() - rangeSize + 1;
-        }
-
-        for (var i = start; i < start + rangeSize; i++) {
-          if (i >= 0) {
-            ret.push(i);
-          }
-        }
-
-        return ret;
       };
 
       this.updateNumberOfResults();
