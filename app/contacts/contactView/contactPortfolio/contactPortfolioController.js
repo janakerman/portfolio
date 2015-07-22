@@ -2,8 +2,8 @@
 
 define([], function() {
 
-    var ContactPortfolioController = function(holdings) {
-        this.holdings = holdings;
+    var ContactPortfolioController = function(portfolio) {
+        this.holdings = portfolio.instruments;
     };
 
     ContactPortfolioController.resolve =  {
