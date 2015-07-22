@@ -1,7 +1,7 @@
 <nav class='text-center'>
   <ul class="pagination">
     <li ng-class="{ disabled: barController.isPreviousButtonDisabled() }">
-      <a href ng-click="barController.prevPage()" aria-label="Previous">
+      <a ng-click="barController.prevPage()" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -11,7 +11,7 @@
       <a>{{n+1}}</a>
     </li>
     <li ng-class="{ disabled: barController.isNextButtonDisabled() }">
-      <a href ng-click="barController.nextPage()" aria-label="Next">
+      <a ng-click="barController.nextPage()" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

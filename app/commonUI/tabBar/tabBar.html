@@ -1,2 +1,6 @@
 <ul class="nav nav-tabs">
+    <li ng-repeat="title in titles"
+        ng-class="{ active: TabBarController.isActive($index) }">
+        <a ng-click="TabBarController.tabSelected($index)">{{ title }}</a>
+    </li>
 </ul>

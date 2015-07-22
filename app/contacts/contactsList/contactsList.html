@@ -10,7 +10,7 @@
 <table class="table table-hover">
   <thead>
     <td>
-      <a href="#" ng-click="contactListController.sortClicked('username')">
+      <a ng-click="contactListController.sortClicked('username')">
         Name
         <span ng-show="contactListController.sortType == 'username'"
               ng-class="contactListController.sortReverse ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"
@@ -20,7 +20,7 @@
       </a>
     </td>
     <td>
-      <a href="#" ng-click="contactListController.sortClicked('email')">
+      <a ng-click="contactListController.sortClicked('email')">
         Email
         <span ng-show="contactListController.sortType == 'email'"
               ng-class="contactListController.sortReverse ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"
