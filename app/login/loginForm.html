@@ -1,4 +1,4 @@
-<div>
+<div class='col-xs-12'>
   <form name="loginForm" ng-hide="loginController.isAuthenticated() === true" ng-submit="loginController.login(credentials)" novalidate>
     <label for="username">Username:</label>
     <input type="text" id="username" ng-model="credentials.username">
@@ -9,3 +9,4 @@
 
   <button type="submit" ng-show="loginController.isAuthenticated() === true" ng-click="loginController.logOut()">Log Out</button>
 </div>
+

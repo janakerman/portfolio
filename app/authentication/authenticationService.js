@@ -17,7 +17,14 @@ define(['Parse'], function(Parse) {
     };
    
     authService.isAuthorized = function (authorizedRoles) {
-      return true; // TODO
+      if (!angular.isArray(authorizedRoles)) {
+        authorizedRoles = [authorizedRoles];
+      }
+      
+      return true; // TODO. Need to delay the call while we potentially fetch the user's role from the server.
+
+      // return (authService.isAuthenticated() && 
+      //   authorizedRoles.indexOf(Parse.User.current().userRole) !== -1);
     };
 
     return authService;

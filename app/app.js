@@ -28,8 +28,8 @@ define([
           }
         }
       });
-
       $urlRouterProvider.otherwise('/contacts');
+    }
+  ]);
 
-    }]);
-  });
+});
