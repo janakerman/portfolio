@@ -1,5 +1,14 @@
 @import "../node_modules/bootstrap/less/bootstrap.less";
 
+/*
+ * Common
+ */
+
+h1, h2, h3, h4, h5, h6 {
+  // Ensures heading's margins do not span out of their parent divs.
+  display: inline-block;;
+}
+
 /* app css stylesheet */
 
 .menu {
@@ -34,6 +43,21 @@
 @icon-font-path: "fonts/";
 
 /*
+ * Contact detail
+ */
+
+.contact-detail {
+  height: 400px;
+  overflow-y: auto;
+
+  background-color: @body-bg;
+  border-left: 1px solid @nav-tabs-border-color;
+  border-right: 1px solid @nav-tabs-border-color;
+  border-bottom: 1px solid @nav-tabs-border-color;
+  border-radius: 0 0 @border-radius-base @border-radius-base;
+}
+
+/*
  * Loading spinner
  */
 
@@ -47,6 +71,7 @@
 
 .spinner-container {
   position: relative;
+  height: 100%;
 
   .spinner {
     display: none;

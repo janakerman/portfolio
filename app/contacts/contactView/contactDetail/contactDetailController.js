@@ -5,8 +5,6 @@ define([], function() {
     var ContactDetailController = function($scope, stateService, contact, loadingSpinnerService) {
         var self = this;
 
-        this.spinnerId = 'contact-detail';
-
         function stateNames() {
             return stateService.descendantsOfState('app.contacts.detail')
                 .map(function(state) { return state.name; });
@@ -31,7 +29,7 @@ define([], function() {
             return self.tabIndex;
         }, function(newIndex) {
             var transitionPromise = stateService.$state.go(stateNames()[newIndex]);
-            loadingSpinnerService.spin(self.spinnerId, transitionPromise);
+            loadingSpinnerService.spin('contact-detail', transitionPromise);
         });
 
         stateService.navigatedToDescendantOf('app.contacts.detail', function(toState) {

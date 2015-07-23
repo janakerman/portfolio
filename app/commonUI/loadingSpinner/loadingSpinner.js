@@ -12,7 +12,7 @@ define([], function() {
                 var spinnerId = iAttrs.spinnerId;
 
                 scope.$on('loadingSpinner:spin', function(event, args) {
-                    if (!args) {
+                    if (!args && args !== spinnerId) {
                         return;
                     }
 
@@ -20,7 +20,7 @@ define([], function() {
                 });
 
                 scope.$on('loadingSpinner:stop', function(event, args) {
-                    if (!args) {
+                    if (!args && args !== spinnerId) {
                         return;
                     }
 
