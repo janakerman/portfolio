@@ -5,7 +5,7 @@ define([], function() {
 
         function spin(spinnerId, promise) {
             if (promise) {
-                promise.then(function() {
+                promise.finally(function() {
                     stop(spinnerId);
                 });
             }

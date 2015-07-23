@@ -2,7 +2,7 @@
 
 define([], function() {
 
-    var ContactDetailController = function($scope, stateService, contact, loadingSpinnerService) {
+    var ContactDetailController = function($scope, stateService, contact) {
         var self = this;
 
         function stateNames() {
@@ -28,8 +28,7 @@ define([], function() {
         $scope.$watch(function() {
             return self.tabIndex;
         }, function(newIndex) {
-            var transitionPromise = stateService.$state.go(stateNames()[newIndex]);
-            loadingSpinnerService.spin('contact-detail', transitionPromise);
+            stateService.$state.go(stateNames()[newIndex]);
         });
 
         stateService.navigatedToDescendantOf('app.contacts.detail', function(toState) {

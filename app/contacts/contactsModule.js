@@ -52,9 +52,12 @@ define([
                         'detail@app.contacts': {
                             templateUrl: '/app/contacts/contactView/contactDetail/contactDetail.html',
                             resolve: ContactDetailController.resolve,
-                            controller: ['$scope', 'stateService', 'contact', 'loadingSpinnerService', ContactDetailController],
+                            controller: ['$scope', 'stateService', 'contact', ContactDetailController],
                             controllerAs: 'contactDetailController'
                         }
+                    },
+                    data: {
+                        loadingSpinnerId: 'contact-detail'
                     }
                 })
                 .state('app.contacts.detail.main', {
