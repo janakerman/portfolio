@@ -1,6 +1,6 @@
 'use strict';
 
-define([''], function() {
+define([], function() {
   return function($rootScope, authenticationService, AUTH_EVENTS) {
 
     var self = this;

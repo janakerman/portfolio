@@ -5,7 +5,7 @@ define([
     './loginForm',
   	'authentication/authenticationModule',
 ], function(angular, loginForm) {
-    return angular.module('portfolio.login', ['portfolio.authentication'])
+    return angular.module('portfolio.login', ['ngAnimate', 'portfolio.authentication'])
       .directive('loginForm', loginForm)
 
       .config(['$stateProvider',

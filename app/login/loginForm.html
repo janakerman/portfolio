@@ -7,7 +7,7 @@
     <label class="sr-only">Password</label>
     <input type="password" ng-model="credentials.password" class="form-control" placeholder="Password" required="">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <div ng-show="loginController.showError">
+    <div id="errorAlert" ng-show="loginController.showError" class="fade-transition">
       <hr/>
       <div class="alert alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
