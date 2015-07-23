@@ -10,10 +10,10 @@ define([
 
       .config(['$stateProvider',
         function($stateProvider) {
-          $stateProvider.state('app.login', {
+          $stateProvider.state('login', {
               url: '/login',
               views: {
-                  'content@app': {
+                  '': {
                       template: '<login-form></login-form>'
                   },
               }

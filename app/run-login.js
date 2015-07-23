@@ -17,7 +17,7 @@ define([
       });
 
       $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
-        $state.go('app.login');
+        $state.go('login');
       });
 
       $rootScope.$on('$stateChangeStart', function (event, next) {
@@ -44,11 +44,11 @@ define([
             event.preventDefault();
             return;
           }
-          else if (next.name !== 'app.login') {
+          else if (next.name !== 'login') {
             // user is not logged in and not already on the login page.
             $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             event.preventDefault();
-            $state.go('app.login');
+            $state.go('login');
           }
         }
                 
