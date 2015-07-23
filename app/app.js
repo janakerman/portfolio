@@ -3,6 +3,7 @@
 define([
   'angular',
   'uiRouter',
+  'angularAnimate',
   'structure/structureModule',
   'contacts/contactsModule',
   'login/loginModule',
