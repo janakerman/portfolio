@@ -6,7 +6,7 @@ define(['./navBarController'], function(navBarController) {
       restrict: 'E',
       replace: true,
       templateUrl: '/app/structure/navBar/navBar.html',
-      controller: ['$rootScope', 'authenticationService', 'AUTH_EVENTS', navBarController],
+      controller: ['$state', '$rootScope', 'authenticationService', 'AUTH_EVENTS', navBarController],
       controllerAs: 'navController'
     };
   };
