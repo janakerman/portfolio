@@ -29,7 +29,9 @@ define(['Parse', './portfolio'], function(Parse, Portfolio) {
                     return financeService.getInstrument(symbol);
                 });
 
-                return $q.all(instrumentSummaryPromises);
+                return $q.all(instrumentSummaryPromises).then(function(instruments) {
+                    return new Portfolio(instruments);
+                });
             });
         }
 

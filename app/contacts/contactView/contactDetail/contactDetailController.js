@@ -2,25 +2,17 @@
 
 define([], function() {
 
-    var ContactDetailController = function($rootScope, $scope, $state, contact) {
+    var ContactDetailController = function($scope, stateService, contact) {
         var self = this;
 
-        // Temporary hard coded states
-        var states = [{
-            name: 'app.contacts.detail.main',
-            title: 'Details'
-        },
-        {
-            name: 'app.contacts.detail.portfolio',
-            title: 'Portfolio'
-        }];
-
         function stateNames() {
-            return states.map(function(state) { return state.name; });
+            return stateService.descendantsOfState('app.contacts.detail')
+                .map(function(state) { return state.name; });
         }
 
         function stateTitles () {
-            return states.map(function(state) { return state.title; });
+            return stateService.descendantsOfState('app.contacts.detail')
+                .map(function(state) { return state.data.title; });
         }
 
         function setTabIndexFromStateName(stateName) {
@@ -31,16 +23,16 @@ define([], function() {
 
         self.titles = stateTitles();
 
-        setTabIndexFromStateName($state.current.name);
+        setTabIndexFromStateName(stateService.$state.current.name);
 
         $scope.$watch(function() {
             return self.tabIndex;
         }, function(newIndex) {
-            $state.go(stateNames()[newIndex]);
+            stateService.$state.go(stateNames()[newIndex]);
         });
 
-        $rootScope.$on('$stateChangeSuccess', function(event, toState){
-           setTabIndexFromStateName(toState.name);
+        stateService.navigatedToDescendantOf('app.contacts.detail', function(toState) {
+            setTabIndexFromStateName(toState.name);
         });
     };
 
