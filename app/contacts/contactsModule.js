@@ -52,7 +52,7 @@ define([
                         'detail@app.contacts': {
                             templateUrl: '/app/contacts/contactView/contactDetail/contactDetail.html',
                             resolve: ContactDetailController.resolve,
-                            controller: ['$rootScope', '$scope', 'stateService', 'contact', ContactDetailController],
+                            controller: ['$scope', 'stateService', 'contact', ContactDetailController],
                             controllerAs: 'contactDetailController'
                         }
                     }

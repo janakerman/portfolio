@@ -2,7 +2,22 @@
 
 define([], function() {
 
-    return function($state) {
+    var Listener = function(states, callback) {
+        this.states = states;
+        this.callback = callback;
+    };
+
+    var listeners = [];
+
+    return function($state, $rootScope) {
+
+        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+            listeners.forEach(function(listener) {
+               if (listener.states.indexOf(toState.name) > -1) {
+                   listener.callback(event, toState, toParams, fromState, fromParams);
+               }
+            });
+        });
 
         function descendantsOfState(parentName) {
             return $state.get()
@@ -11,9 +26,15 @@ define([], function() {
                 });
         }
 
+        function navigatedToDescendant(parentName, callback) {
+            var descendants = descendantsOfState(parentName);
+            listeners.push(new Listener(descendants, callback));
+        }
+
         return {
             descendantsOfState: descendantsOfState,
-            $state: $state
+            navigatedToDescendantOf: navigatedToDescendant,
+            $state: $state,
         };
     };
 });

@@ -5,5 +5,5 @@ define([
     './stateService/stateService',
 ], function(angular, stateService) {
     return angular.module('portfolio.common', [])
-        .factory('stateService', ['$state', stateService]);
+        .factory('stateService', ['$state', '$rootScope', stateService]);
 });

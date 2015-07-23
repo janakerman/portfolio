@@ -2,7 +2,7 @@
 
 define([], function() {
 
-    var ContactDetailController = function($rootScope, $scope, stateService, contact, $stateProvider) {
+    var ContactDetailController = function($scope, stateService, contact) {
         var self = this;
 
         function stateNames() {
@@ -31,8 +31,8 @@ define([], function() {
             stateService.$state.go(stateNames()[newIndex]);
         });
 
-        $rootScope.$on('$stateChangeSuccess', function(event, toState){
-           setTabIndexFromStateName(toState.name);
+        stateService.navigatedToDescendantOf('app.contacts.detail', function(toState) {
+            setTabIndexFromStateName(toState.name);
         });
     };
 
