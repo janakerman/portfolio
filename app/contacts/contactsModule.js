@@ -28,6 +28,9 @@ define([
                 $stateProvider.state('app.contacts', {
                     abstract: true,
                     url: '/contacts',
+                    data: {
+                        authorizedRoles: ['admin']
+                    },
                     views: {
                         'content@app': {
                             template: '<contacts-layout></contacts-layout>'

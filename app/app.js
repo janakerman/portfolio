@@ -3,16 +3,19 @@
 define([
   'angular',
   'uiRouter',
+  'angularAnimate',
   'structure/structureModule',
   'contacts/contactsModule',
   'login/loginModule',
+  'authentication/authenticationModule',
 ], function(angular) {
 
   return angular.module('portfolio', [
     'ui.router',
     'portfolio.structure',
     'portfolio.contacts',
-    'portfolio.login'
+    'portfolio.login',
+    'portfolio.authentication'
   ])
 
   .config([
@@ -28,8 +31,8 @@ define([
           }
         }
       });
-
       $urlRouterProvider.otherwise('/contacts');
+    }
+  ]);
 
-    }]);
-  });
+});
