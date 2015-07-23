@@ -1,5 +1,7 @@
 <div class="well">
 	<h1>{{ contactDetailController.contact.attributes.username }}</h1>
 	<tab-bar titles="contactDetailController.titles" current-index="contactDetailController.tabIndex"></tab-bar>
-	<div ui-view="contact-detail-tab"></div>
+	<loading-spinner spinner-id="{{ contactDetailController.spinnerId }}">
+		<div ui-view="contact-detail-tab"></div>
+	</loading-spinner>
 </div>
