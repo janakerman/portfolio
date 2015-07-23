@@ -1,7 +1,8 @@
 @import "../node_modules/bootstrap/less/bootstrap.less";
 
-/* app css stylesheet */
+@icon-font-path: "fonts/";
 
+/* app css stylesheet */
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -31,4 +32,42 @@
   padding: 0;
 }
 
-@icon-font-path: "fonts/";
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  margin-top: 30px;
+  background-color: #eee;
+  border-radius: 10px;
+
+  .form-signin-heading {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .form-control:focus {
+    z-index: 2;
+  }
+
+  input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}

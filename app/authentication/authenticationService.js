@@ -5,14 +5,27 @@ define(['Parse'], function(Parse) {
     var authService = {};
 
     authService.login = function (credentials) {
-      Parse.User.logIn(credentials.username, credentials.password).then(function() {
-        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-      });
+
+      if (!credentials) {
+        $rootScope.$broadcast(AUTH_EVENTS.loginFailed, {"reason": "Please enter a username and password"});
+        return;
+      }
+
+      Parse.User.logIn(credentials.username, credentials.password).then(
+        function() {
+          $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+          $rootScope.$digest();
+        },
+        function(error) {
+          $rootScope.$broadcast(AUTH_EVENTS.loginFailed, {"reason": "Incorrect details"});
+          $rootScope.$digest();
+        });
     };
 
     authService.logOut = function () {
       Parse.User.logOut().then(function() {
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+        $rootScope.$digest();
       });
     };
    

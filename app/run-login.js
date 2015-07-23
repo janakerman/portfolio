@@ -29,11 +29,11 @@ define([
           }
         }
 
-        // if (next.name === "app.login" && authenticationService.isAuthenticated()) {
-        //   // Stop the user from getting to the login page if they are signed in.
-        //   event.preventDefault();
-        //   return;
-        // }
+        if (next.name === "login" && authenticationService.isAuthenticated()) {
+          // Stop the user from getting to the login page if they are signed in.
+          event.preventDefault();
+          return;
+        }
 
         if (!authenticationService.isAuthorized(authorizedRoles)) {
         

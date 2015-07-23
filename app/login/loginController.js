@@ -1,19 +1,23 @@
 'use strict';
 
 define([''], function() {
-  return function($scope, $rootScope, authenticationService, AUTH_EVENTS) {
+  return function($rootScope, authenticationService, AUTH_EVENTS) {
+
+    var self = this;
+
+    this.showError = false;
+
+    $rootScope.$on(AUTH_EVENTS.loginFailed, function(a, b, c){
+      self.errorMessage = b.reason;
+      self.showError = true;
+    });
 
     this.login = function(credentials) {
+      self.showError = false;
+      self.errorMessage = undefined;
+
       authenticationService.login(credentials);
     };
-
-    this.logOut = function() {
-      authenticationService.logOut();
-    };
-
-    this.isAuthenticated = function() {
-      return authenticationService.isAuthenticated();
-    };
-
+    
   };
 });
