@@ -6,10 +6,19 @@ define([
 
   // Check to see if the user is logged in on every state change. Otherwise don't let them navigate.
   app.run([
-    '$rootScope', 
+    '$rootScope',
+    '$state',
     'AUTH_EVENTS',
     'authenticationService',
-    function ($rootScope, AUTH_EVENTS, authenticationService) {
+    function ($rootScope, $state, AUTH_EVENTS, authenticationService) {
+
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+        $state.go('app.contacts.placeholder');
+      });
+
+      $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
+        $state.go('app.login');
+      });
 
       $rootScope.$on('$stateChangeStart', function (event, next) {
 
@@ -20,19 +29,29 @@ define([
           }
         }
 
-        if (!authenticationService.isAuthorized(authorizedRoles)) {
-          event.preventDefault();
+        // if (next.name === "app.login" && authenticationService.isAuthenticated()) {
+        //   // Stop the user from getting to the login page if they are signed in.
+        //   event.preventDefault();
+        //   return;
+        // }
 
-          if (authenticationService.isAuthenticated()) {
+        if (!authenticationService.isAuthorized(authorizedRoles)) {
+        
+          if (authenticationService.isAuthenticated(authorizedRoles)) {
             // user is not allowed
             $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-          } 
-          else {
-            // user is not logged in
+            console.error('User is not allowed to see this page. ' + next);
+            event.preventDefault();
+            return;
+          }
+          else if (next.name !== 'app.login') {
+            // user is not logged in and not already on the login page.
             $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+            event.preventDefault();
+            $state.go('app.login');
           }
         }
-        
+                
       });
     }
   ]);

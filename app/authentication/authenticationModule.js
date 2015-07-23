@@ -18,5 +18,5 @@ define([
         admin: 'admin',
         user: 'user'
       })
-      .factory('authenticationService', [authenticationService]);
+      .factory('authenticationService', ['$rootScope', 'AUTH_EVENTS', authenticationService]);
 });
