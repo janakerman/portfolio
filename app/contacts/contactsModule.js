@@ -9,9 +9,15 @@ define([
     './contactView/contactPortfolio/contactPortfolioController',
   	'dataServices/dataServicesModule',
     'commonUI/commonUIModule',
+    'common/commonModule',
     'dashboard/dashboardModule',
 ], function(angular, contactsLayout, contactsList, ContactDetailController, contactPlaceholder, ContactPortfolioController) {
-    return angular.module('portfolio.contacts', ['portfolio.dataServices', 'portfolio.commonUI', 'portfolio.dashboard'])
+    return angular.module('portfolio.contacts', [
+        'portfolio.dataServices',
+        'portfolio.commonUI',
+        'portfolio.dashboard',
+        'portfolio.common'
+    ])
         .directive('contactsLayout', [contactsLayout])
         .directive('contactsList', [contactsList])
         .directive('contactPlaceholder', [contactPlaceholder])
@@ -46,7 +52,7 @@ define([
                         'detail@app.contacts': {
                             templateUrl: '/app/contacts/contactView/contactDetail/contactDetail.html',
                             resolve: ContactDetailController.resolve,
-                            controller: ['$rootScope', '$scope', '$state', 'contact', ContactDetailController],
+                            controller: ['$rootScope', '$scope', 'stateService', 'contact', ContactDetailController],
                             controllerAs: 'contactDetailController'
                         }
                     }
@@ -55,8 +61,12 @@ define([
                     url: '',
                     views: {
                         'contact-detail-tab@app.contacts.detail': {
-                            templateUrl: '/app/contacts/contactView/contactSummary/contactSummary.html'
+                            templateUrl: '/app/contacts/contactView/contactSummary/contactSummary.html',
+
                         }
+                    },
+                    data: {
+                        title: 'Details'
                     }
                 })
                 .state('app.contacts.detail.portfolio', {
@@ -66,8 +76,11 @@ define([
                             templateUrl: '/app/contacts/contactView/contactPortfolio/contactPortfolio.html',
                             resolve: ContactPortfolioController.resolve,
                             controller: ['holdings', ContactPortfolioController],
-                            controllerAs: 'contactPortfolioController'
+                            controllerAs: 'contactPortfolioController',
                         }
+                    },
+                    data: {
+                        title: 'Portfolio'
                     }
                 });
 
