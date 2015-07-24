@@ -8,6 +8,7 @@ define([
   'contacts/contactsModule',
   'login/loginModule',
   'authentication/authenticationModule',
+  'admin/adminModule',
 ], function(angular) {
 
   return angular.module('portfolio', [
@@ -15,7 +16,8 @@ define([
     'portfolio.structure',
     'portfolio.contacts',
     'portfolio.login',
-    'portfolio.authentication'
+    'portfolio.authentication',
+    'portfolio.admin'
   ])
 
   .config([
@@ -31,6 +33,7 @@ define([
           }
         }
       });
+      
       $urlRouterProvider.otherwise('/contacts');
     }
   ]);

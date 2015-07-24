@@ -1,0 +1,19 @@
+<div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li ng-class="layoutController.classFor('users')">
+            <a href="#/admin/users">Users</a>
+          </li>
+          <li ng-class="layoutController.classFor('corporations')">
+            <a href="#/admin/corporations">Corporations</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+
+  <hr/>
+
+  <div ui-view="admin-content"></div>
+
+</div>

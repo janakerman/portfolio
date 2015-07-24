@@ -1,0 +1,28 @@
+<div>
+
+  <div ng-repeat="corporation in corporationsController.corporations" class="col-md-4 col-xs-12 pull-left">
+    <div class="panel panel-default corporation-panel">
+      <div class="panel-body">
+        <div class="thumbnail pull-right">
+          <div class="thumbnail-content" style="background-image:url({{ corporation.attributes.logo.url() }});">
+            
+          </div>
+        </div>
+        <h3>{{ corporation.attributes.name }}</h3>
+        <hr/>
+        <div class="row">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-xs-12 pull-left">
+    <div class="panel panel-default corporation-panel">
+      <div class="panel-body panel-add">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </div>
+    </div>  
+  </div>
+
+</div>
