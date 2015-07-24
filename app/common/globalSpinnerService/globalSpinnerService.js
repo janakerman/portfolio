@@ -4,27 +4,49 @@ define([], function() {
 
   return function($rootScope, $q, loadingSpinnerService, stateService) {
 
-    var transitionDeferred;
+    var onStateChangeSuccess;
+    var onStateChangeError;
+    var onStateChangeStart;
 
-    $rootScope.$on('$stateChangeStart', function(event, toState){
+    function listen() {
+      var transitionDeferred;
 
-      // Assumes a substates spinner is always in it's parent state.
-      var parentState = stateService.parentOf(toState.name);
+      $rootScope.$on('$stateChangeStart', function (event, toState) {
 
-      var stateSpinnerId = parentState && parentState.data && parentState.data.loadingSpinnerId;
+        // Assumes a substates spinner is always in it's parent state.
+        var parentState = stateService.parentOf(toState.name);
 
-      transitionDeferred = $q.defer();
-      loadingSpinnerService.spin(stateSpinnerId, transitionDeferred.promise);
-    });
+        var stateSpinnerId = parentState && parentState.data && parentState.data.loadingSpinnerId;
 
-    $rootScope.$on('$stateChangeSuccess', function(event, toState){
-      transitionDeferred.resolve();
-    });
+        transitionDeferred = $q.defer();
+        loadingSpinnerService.spin(stateSpinnerId, transitionDeferred.promise);
+      });
 
-    $rootScope.$on('$stateChangeError', function(event, toState){
-      transitionDeferred.reject();
-    });
+      $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        transitionDeferred.resolve();
+      });
 
-    return this;
+      $rootScope.$on('$stateChangeError', function (event, toState) {
+        transitionDeferred.reject();
+      });
+    }
+
+    function stopListening() {
+
+      if (!onStateChangeError || !onStateChangeStart || !onStateChangeSuccess) {
+        return;
+      }
+
+      onStateChangeError();
+      onStateChangeStart();
+      onStateChangeSuccess();
+
+      onStateChangeError = onStateChangeStart = onStateChangeSuccess = null;
+    }
+
+    return {
+      listen: listen,
+      stopListening: stopListening
+    };
   };
 });
