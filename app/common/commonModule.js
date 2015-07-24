@@ -10,8 +10,7 @@ define([
         .factory('stateService', ['$state', '$rootScope', stateService])
         .factory('globalSpinnerService', ['$rootScope', '$q', 'loadingSpinnerService', 'stateService', globalSpinnerService])
 
-        // TODO: Pull out into proivider and add to state configure?
-      .run(['globalSpinnerService', function(globalSpinnerService) {
-
-    }]);
+        .run(['globalSpinnerService', function(globalSpinnerService) {
+            globalSpinnerService.listen();
+        }]);
 });
