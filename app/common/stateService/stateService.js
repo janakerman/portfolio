@@ -31,9 +31,15 @@ define([], function() {
             listeners.push(new Listener(descendants, callback));
         }
 
+        function parentOf(stateName) {
+            var parentState = stateName.slice(0,stateName.lastIndexOf('.'));
+            return $state.get().filter(function(state) { return state.name === parentState; })[0];
+        }
+
         return {
             descendantsOfState: descendantsOfState,
             navigatedToDescendantOf: navigatedToDescendant,
+            parentOf: parentOf,
             $state: $state,
         };
     };

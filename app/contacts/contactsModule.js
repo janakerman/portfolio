@@ -58,6 +58,9 @@ define([
                             controller: ['$scope', 'stateService', 'contact', ContactDetailController],
                             controllerAs: 'contactDetailController'
                         }
+                    },
+                    data: {
+                        loadingSpinnerId: 'contact-detail'
                     }
                 })
                 .state('app.contacts.detail.main', {
