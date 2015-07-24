@@ -1,11 +1,11 @@
 'use strict';
 
-define(['./adminLayoutController'], function(adminLayoutController) {
+define(['./adminLayoutController', 'text!./adminLayout.html'], function(adminLayoutController, template) {
     return function() {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/app/admin/adminLayout/adminLayout',
+            template: template,
             controller: ['$state', adminLayoutController],
             controllerAs: 'layoutController'
         };

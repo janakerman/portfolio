@@ -1,11 +1,11 @@
 'use strict';
 
-define(['./corporationsController'], function(corporationsController) {
+define(['./corporationsController', 'text!./corporations.html'], function(corporationsController, template) {
   return function() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/app/admin/corporations/corporations.html',
+      template: template,
       controllerAs: 'corporationsController',
       controller: ['$scope', 'corporationsService', corporationsController]
     };
