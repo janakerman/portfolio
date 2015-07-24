@@ -1,10 +1,10 @@
 'use strict';
 
-define([], function() {
+define(['text!./loadingSpinner.html'], function(template) {
     return function() {
         return {
             restrict: 'E',
-            templateUrl: '/app/commonUI/loadingSpinner/loadingSpinner.html',
+            template: template,
             transclude: true,
             replace: true,
             link: function(scope, iElm, iAttrs) {

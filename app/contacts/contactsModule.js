@@ -7,11 +7,18 @@ define([
     './contactView/contactDetail/contactDetailController',
     './contactView/contactPlaceholder/contactPlaceholder',
     './contactView/contactPortfolio/contactPortfolioController',
+    // TODO: Does the fact we're now injecting template bring into question the decision to use resolves?! Probably!
+    'text!./contactView/contactSummary/contactSummary.html',
+    'text!./contactView/contactDetail/contactDetail.html',
+    'text!./contactView/contactPortfolio/contactPortfolio.html',
+    // Angular module dependencies.
   	'dataServices/dataServicesModule',
     'commonUI/commonUIModule',
     'common/commonModule',
-    'dashboard/dashboardModule',
-], function(angular, contactsLayout, contactsList, ContactDetailController, contactPlaceholder, ContactPortfolioController) {
+    'dashboard/dashboardModule'
+
+], function(angular, contactsLayout, contactsList, ContactDetailController, contactPlaceholder, ContactPortfolioController,
+    contactSummaryTemplate, contactDetailTemplate, contactPortfolioTemplate) {
     return angular.module('portfolio.contacts', [
         'portfolio.dataServices',
         'portfolio.commonUI',
@@ -53,7 +60,7 @@ define([
                     url: '/:id',
                     views: {
                         'detail@app.contacts': {
-                            templateUrl: '/app/contacts/contactView/contactDetail/contactDetail.html',
+                            template: contactDetailTemplate,
                             resolve: ContactDetailController.resolve,
                             controller: ['$scope', 'stateService', 'contact', ContactDetailController],
                             controllerAs: 'contactDetailController'
@@ -67,8 +74,7 @@ define([
                     url: '',
                     views: {
                         'contact-detail-tab@app.contacts.detail': {
-                            templateUrl: '/app/contacts/contactView/contactSummary/contactSummary.html',
-
+                            template: contactSummaryTemplate,
                         }
                     },
                     data: {
@@ -79,7 +85,7 @@ define([
                     url: '/portfolio',
                     views: {
                         'contact-detail-tab@app.contacts.detail': {
-                            templateUrl: '/app/contacts/contactView/contactPortfolio/contactPortfolio.html',
+                            template: contactPortfolioTemplate,
                             resolve: ContactPortfolioController.resolve,
                             controller: ['holdings', ContactPortfolioController],
                             controllerAs: 'contactPortfolioController',

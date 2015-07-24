@@ -1,10 +1,10 @@
 'use strict';
 
-define(['./tabBarController'], function(tabBarController) {
+define(['./tabBarController', 'text!./tabBar.html'], function(tabBarController, template) {
   return function() {
     return {
       restrict: 'E',
-      templateUrl: '/app/commonUI/tabBar/tabBar.html',
+      template: template,
       replace: true,
       scope: {
         titles: '=',
