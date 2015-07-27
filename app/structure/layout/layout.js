@@ -1,10 +1,10 @@
 'use strict';
 
-define([], function() {
+define(['text!./layout.html'], function(template) {
   return function() {
     return {
       restrict: 'E',
-      templateUrl: '/app/structure/layout/layout.html'
+      template: template
     };
   };
 });

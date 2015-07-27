@@ -1,6 +1,6 @@
 'use strict';
 
-define(['./paginationBarController'], function(paginationBarController) {
+define(['./paginationBarController', 'text!./paginationBar.html'], function(paginationBarController, template) {
   return function() {
     return {
       restrict: 'E',
@@ -9,7 +9,7 @@ define(['./paginationBarController'], function(paginationBarController) {
         numberOfItems: '=',
         pageChanged: '='
       },
-      templateUrl: '/app/commonUI/paginationBar/paginationBar.html',
+      template: template,
       controller: ['$scope', paginationBarController],
       controllerAs: 'barController'
     };

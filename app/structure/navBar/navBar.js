@@ -1,11 +1,11 @@
 'use strict';
 
-define(['./navBarController'], function(navBarController) {
+define(['./navBarController', 'text!./navBar.html'], function(navBarController, template) {
   return function() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/app/structure/navBar/navBar.html',
+      template: template,
       controller: ['$state', '$rootScope', 'authenticationService', 'AUTH_EVENTS', navBarController],
       controllerAs: 'navController'
     };

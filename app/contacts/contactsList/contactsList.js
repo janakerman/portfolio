@@ -1,10 +1,10 @@
 'use strict';
 
-define(['./contactsListController'], function(contactListController) {
+define(['./contactsListController', 'text!./contactsList.html'], function(contactListController, template) {
     return function() {
         return {
             restrict: 'E',
-            templateUrl: '/app/contacts/contactsList/contactsList.html',
+            template: template,
             controller: ['$scope', 'contactsService', contactListController],
             controllerAs: 'contactListController'
         };
